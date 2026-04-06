@@ -1,7 +1,43 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage';
+import { BankHomePage } from '../../../src/pages/BankHomePage';
+import { BankManagerMainPage } from '../../../src/pages/manager/BankManagerMainPage'; 
 
-test.beforeEach(async ({ page }) => {
+test.describe('Manager can delete customer', () => {
+  let addCustomerPage;
+  let bankHomePage;
+  let bankManagerMainPage;
+  let customerFirstName;
+  let customerLastName;
+  let customerPostCode;
+
+  test.beforeEach(async ({ page }) => {
+    addCustomerPage = new AddCustomerPage(page);
+    await addCustomerPage.open();
+    await addCustomerPage.waitForOpened();
+
+    customerFirstName = faker.person.firstName();
+    customerLastName = faker.person.lastName();
+    customerPostCode = faker.location.zipCode();
+
+    await addCustomerPage.addCustomer(
+      customerFirstName,
+      customerLastName,
+      customerPostCode,
+    );
+  });
+
+  test('Assert manager can delete customer', async ({ page }) => {
+    await addCustomerPage.openCustomersPage();
+    await addCustomerPage.clickDeleteButtonForCustomer(customerFirstName);
+    await addCustomerPage.assertCustomerRowIsNotPresent(customerFirstName);
+    await page.reload();
+    await addCustomerPage.assertCustomerRowIsNotPresent(customerFirstName);
+  });
+
+
+
   /* 
   Pre-conditons:
   1. Open Add Customer page.
@@ -10,9 +46,7 @@ test.beforeEach(async ({ page }) => {
   4. Fill the Postal Code.
   5. Click [Add Customer].
   */
-});
 
-test('Assert manager can delete customer', async ({ page }) => {
   /* 
   Test:
   1. Open Customers page.
