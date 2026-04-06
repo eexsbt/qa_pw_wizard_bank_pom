@@ -9,13 +9,11 @@ test.describe('Manager can Login', () => {
   test.beforeEach(async ({ page }) => {
     bankHomePage = new BankHomePage(page);
     bankManagerMainPage = new BankManagerMainPage(page);
-    await bankHomePage.open();
   });
 
   test('Assert manager can Login', async ({ page }) => {
-    await bankHomePage.clickBankManagerLoginButton();
+    await bankHomePage.loginAsManager();
     await bankManagerMainPage.waitForOpened();
-    await page.waitForTimeout(1000); // Wait for elements to load
     await bankManagerMainPage.assertAddCustomerButtonIsVisible();
     await bankManagerMainPage.assertOpenAccountButtonIsVisible();
     await bankManagerMainPage.assertCustomersButtonIsVisible();

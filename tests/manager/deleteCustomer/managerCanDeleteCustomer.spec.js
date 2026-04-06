@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage';
-import { BankHomePage } from '../../../src/pages/BankHomePage';
-import { BankManagerMainPage } from '../../../src/pages/manager/BankManagerMainPage'; 
+import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage'; 
 
 test.describe('Manager can delete customer', () => {
   let addCustomerPage;

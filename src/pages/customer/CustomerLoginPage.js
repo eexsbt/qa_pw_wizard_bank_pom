@@ -25,6 +25,12 @@ export class CustomerLoginPage {
     await this.loginButton.click();
   }
 
+  async loginAsCustomer(customerName) {
+    await this.open();
+    await this.selectCustomer(customerName);
+    await this.clickLoginButton();
+  }
+
   async assertSelectCustomerDropdownIsVisible() {
     await expect(this.customerDropDown).toBeVisible();
   }

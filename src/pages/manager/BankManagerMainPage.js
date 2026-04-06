@@ -46,6 +46,12 @@ export class BankManagerMainPage {
     await this.customersButton.click();
   }
 
+  async goToOpenAccount() {
+    await this.open();
+    await this.waitForOpened();
+    await this.clickOpenAccountButton();
+  }
+
   async selectCustomer(customerName) {
     await this.page.locator('#userSelect').selectOption({ label: customerName });
   }

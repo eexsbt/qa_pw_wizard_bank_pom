@@ -20,4 +20,9 @@ export class BankHomePage {
   async clickBankManagerLoginButton() {
     await this.bankManagerLoginButton.click();
   }
+
+  async loginAsManager() {
+    await this.open();
+    await this.clickBankManagerLoginButton();
+  }
 }
